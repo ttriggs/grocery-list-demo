@@ -1,0 +1,42 @@
+body {
+  /* Use a "Matrix"-style color scheme. */
+  background-color: #003366;
+  color: #b4daff;
+
+  font-family: arial;
+  font-size: 1.5em;
+}
+
+table {
+  /* Wrap the list in a green box. */
+  width: 600px;
+  border: 1px solid #0065c8;
+  padding: 10px;
+}
+
+p {
+  font-family: garamond;
+  font-size:0.8em;
+}
+
+a {
+  color: #bbbbbb;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b4daff;
+  text-decoration: underline;
+}
+
+h5 {
+  padding: 0em
+}
+tr {
+  /* Add a bit more spacing between list items. */
+  padding: 5px;
+}
+
+form p {
+  display: inline
+}

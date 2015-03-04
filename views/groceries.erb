@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grocery List</title>
+    <link rel="stylesheet" href="home.css">
+  </head>
+
+  <body>
+    <h1>Grocery List</h1>
+    <table>
+      <% grocery_list.each do |grocery_item_hash| %>
+        <% grocery_item = grocery_item_hash["item"] %>
+        <% search_text = grocery_item.gsub(/\s/,"+") if !search_text.nil?  %>
+        <tr>
+          <td><a target="_blank" href="http://www.google.com/search?q=<%= search_text %>"><%= grocery_item %></a></td>
+          <td>
+            <form action="/groceries/delete" method="post">
+              <label for=delete_grocery_item></label>
+              <input type=hidden id="delete_grocery_item" name="delete_grocery_item" value="<%= grocery_item %>">
+              <input type=submit  id="delete_item" value="X">
+            </form>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <h5>What more could you want??</h5>
+    <% unless session[:message].nil? %>
+      <p style="color:red"> <%= session[:message] %></p>
+    <% end %>
+    <form action="/groceries" method=post>
+      <p>
+        <label for="grocery_item"></label>
+        <input type=text id="grocery_item" name="grocery_item" autofocus >
+        <button type=submit id="submit_new_item" >Add </button>
+      </p>
+    </form>
+
+    <script src="/js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="/js/grocery.js"></script>
+
+  </body>
+</html>
+
+
+
