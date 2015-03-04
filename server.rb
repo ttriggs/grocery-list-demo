@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'pg'
 require 'json'
-require 'pry'
 
 configure do
   enable :sessions
@@ -25,7 +24,7 @@ def get_grocery_list
     array = []
     groceries_res = conn.exec("SELECT * FROM #{GROCERIES_TABLE}")
     groceries_res.each do |row|
-		  array << row
+      array << row
     end
     array
   end
@@ -43,15 +42,14 @@ end
 
 
 get "/" do
-	redirect "/groceries"
+  redirect "/groceries"
 end
 
 
 post "/groceries" do 
-	new_item = params["grocery_item"]
-	
+  new_item = params["grocery_item"]
   db_connection do |conn|  
-	  conn.exec_params("INSERT INTO #{GROCERIES_TABLE} (item) VALUES ($1)", [new_item])
+    conn.exec_params("INSERT INTO #{GROCERIES_TABLE} (item) VALUES ($1)", [new_item])
   end
   redirect "/groceries"
 end
@@ -59,7 +57,7 @@ end
 post "/groceries/delete" do
   item_to_delete = params[:delete_grocery_item]
   db_connection do |conn|  
-	  conn.exec_params("DELETE FROM #{GROCERIES_TABLE} WHERE item = '#{item_to_delete}'")
+    conn.exec_params("DELETE FROM #{GROCERIES_TABLE} WHERE item = '#{item_to_delete}'")
   end
   redirect "/groceries"
 end
