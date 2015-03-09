@@ -9,7 +9,6 @@ end
 DB_NAME = "grocery-list-2"
 GROCERIES_TABLE = 'groceries'
 
-
 def db_connection
   begin
     connection = PG.connect(dbname: DB_NAME)
@@ -48,10 +47,14 @@ end
 
 post "/groceries" do 
   new_item = params["grocery_item"]
-  db_connection do |conn|  
-    conn.exec_params("INSERT INTO #{GROCERIES_TABLE} (item) VALUES ($1)", [new_item])
+  groceries = get_grocery_list.map {|item| item["item"] }
+  if !groceries.include?(new_item)
+    db_connection do |conn|  
+      conn.exec_params("INSERT INTO #{GROCERIES_TABLE} (item) VALUES ($1)", [new_item])
+    end
+  else
+    redirect "/groceries"
   end
-  redirect "/groceries"
 end
 
 post "/groceries/delete" do
